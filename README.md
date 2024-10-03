@@ -1,6 +1,6 @@
 # nutrielody
 
-Use RAG-augmented LLMs to suggest additions to your meal to avoid deficiencies.
+Eliminate nutrient deficiencies using RAG-augmented LLMs to suggest additions to your meal.
 
 Python 3.10+ is required.
 
@@ -16,6 +16,25 @@ usage: nutrielody [-h]
 TBA
 ```
 
+## Prerequisites
+
+- NVIDIA RTX Card
+- Docker
+- NVIDIA Container Toolkit
+- GNU make (NVIDIA offers steps in "build-from-source" if missing)
+
+## (Optional) Set Up Rootless Docker
+
+This increases security and limits attack surface in the case of container escape.
+
+### Configure Docker for Rootless Mode
+
+Follow the instructions at Docker: https://docs.docker.com/engine/security/rootless/
+
+### Configure NVIDIA Container Toolkit for Rootless Mode
+
+Follow the instructions from NVIDIA: https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html#rootless-mode
+
 ## TensorRT-LLM Setup
 
 TensorRT-LLM provides a container for running locally-optimized inference.
@@ -24,8 +43,8 @@ Run the commands for TensorRT-LLM from the `./TensorRT-LLM` directory.
 
 Consult the [TensorRT-LLM docs](https://nvidia.github.io/TensorRT-LLM/installation/build-from-source-linux.html) for full walkthrough.
 
-1. Build TensorRT-LLM docker image (takes a while).
-2. Run the image to build the wheel (takes even longer).
+1. Build TensorRT-LLM docker image: `make -C docker devel_build` (takes a while).
+2. Run the image to build the wheel `make -C docker wheel_build` (takes even longer).
 3. Install the wheel as a test (it should save to `$VOLUME/build/tensorrt_llm-*whl`).
 4. Exit the container.
 5. Save the wheel for later use (it probably took an hour or more to build).

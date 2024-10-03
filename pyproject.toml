@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nutrielody"
-description = "Use RAG-augmented LLMs to suggest additions to your meal to avoid deficiencies."
+description = "Eliminate nutrient deficiencies using RAG-augmented LLMs to suggest additions to your meal."
 authors = [
     { name = "Austin Hester", email = "ahester57@gmail.com" }
 ]
