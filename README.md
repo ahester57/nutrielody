@@ -1,10 +1,8 @@
 # nutrielody
 
-
 Use RAG-augmented LLMs to suggest additions to your meal to avoid deficiencies.
 
 Python 3.10+ is required.
-
 
 ## Usage
 
@@ -18,8 +16,34 @@ usage: nutrielody [-h]
 TBA
 ```
 
+## TensorRT-LLM Setup
+
+TensorRT-LLM provides a container for running locally-optimized inference.
+
+Run the commands for TensorRT-LLM from the `./TensorRT-LLM` directory.
+
+Consult the [TensorRT-LLM docs](https://nvidia.github.io/TensorRT-LLM/installation/build-from-source-linux.html) for full walkthrough.
+
+1. Build TensorRT-LLM docker image (takes a while).
+2. Run the image to build the wheel (takes even longer).
+3. Install the wheel as a test (it should save to `$VOLUME/build/tensorrt_llm-*whl`).
+4. Exit the container.
+5. Save the wheel for later use (it probably took an hour or more to build).
+6. Run a new image, same volume.
+7. Reinstall the wheel (no need to rebuild this time).
+
+#### TensorRT-LLM Build Issues
+
+Sometimes, your CPU will not support certain features.
+
+For the error, `error setting rlimits for ready process: error setting rlimit type 8`,
+I had to remove the `--ulimit memlock=-1` option from the Makefile's `DOCKER_RUN_OPTS`.
+
+---
 
 ## Development Setup
+
+Run all commands from the project root, unless otherwise stated.
 
 ### Virtual Environment Installation
 
