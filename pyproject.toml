@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nutrielody"
+description = "Use RAG-augmented LLMs to suggest additions to your meal to avoid deficiencies."
+authors = [
+    { name = "Austin Hester", email = "ahester57@gmail.com" }
+]
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Natural Language :: English",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Education :: Testing"
+]
+requires-python = ">=3.10"
+dependencies = [
+    "tomli==2.0.1; python_version<'3.11'"
+]
+dynamic = ["version", "readme"]
+
+[project.urls]
+"Homepage" = "https://github.com/ahester57/nutrielody"
+
+[project.scripts]
+nutrielody = "nutrielody.cli:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.3.1,<8"
+]
+
+[tool.setuptools.dynamic]
+version = {attr = "nutrielody.__version__"}
+readme = {file = ["README.md"], content-type = "text/markdown"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
