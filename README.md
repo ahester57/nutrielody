@@ -2,8 +2,6 @@
 
 Eliminate nutrient deficiencies using RAG-augmented LLMs to suggest additions to your meal.
 
-Python 3.10+ is required.
-
 ## Usage
 
 Once installed, the application can be run via the command line. Inside your virtual environment:
@@ -19,7 +17,9 @@ TBA
 ## Prerequisites
 
 - NVIDIA RTX Card
+- Linux
 - Docker
+- Python 3.10+
 - NVIDIA Container Toolkit
 - GNU make (NVIDIA offers steps in "build-from-source" if missing)
 
@@ -41,22 +41,22 @@ TensorRT-LLM provides a container for running locally-optimized inference.
 
 Run the commands for TensorRT-LLM from the `./TensorRT-LLM` directory.
 
-Consult the [TensorRT-LLM docs](https://nvidia.github.io/TensorRT-LLM/installation/build-from-source-linux.html) for full walkthrough.
+Consult the [TensorRT-LLM docs](https://nvidia.github.io/TensorRT-LLM/installation/build-from-source-linux.html#option-1-build-tensorrt-llm-in-one-step) for full walkthrough.
 
-1. Build TensorRT-LLM docker image: `make -C docker devel_build` (takes a while).
-2. Run the image to build the wheel `make -C docker wheel_build` (takes even longer).
-3. Install the wheel as a test (it should save to `$VOLUME/build/tensorrt_llm-*whl`).
-4. Exit the container.
-5. Save the wheel for later use (it probably took an hour or more to build).
-6. Run a new image, same volume.
-7. Reinstall the wheel (no need to rebuild this time).
+```bash
+$ make -C docker release_build CUDA_ARCHS="89-real;90-real"
+```
 
-#### TensorRT-LLM Build Issues
+_:warning: This takes a long time. Go for a walk._
 
-Sometimes, your CPU will not support certain features.
+### TensorRT-LLM Build Issues
 
-For the error, `error setting rlimits for ready process: error setting rlimit type 8`,
-I had to remove the `--ulimit memlock=-1` option from the Makefile's `DOCKER_RUN_OPTS`.
+- `error setting rlimits for ready process: error setting rlimit type 8`
+    - Sometimes your CPU will not support certain features. 
+    - I had to remove the `--ulimit memlock=-1` option from the Makefile's `DOCKER_RUN_OPTS`.
+- `gmake: *** [Makefile:218: tensorrt_llm] Error 2`
+    - Simply trying again worked for me.
+    - Otherwise, try re-cloning the [TensorRT-LLM repo](https://github.com/NVIDIA/TensorRT-LLM).
 
 ---
 
